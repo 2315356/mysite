@@ -3,84 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>환영합니다</title>
+  <meta name="description" content="blackberet - 교육 사업 전문 기업">
+  <title>blackberet | 교육 사업</title>
   <style>
+    :root {
+      --black: #121212;
+      --gray-900: #1e1e1e;
+      --gray-600: #5c5c5c;
+      --gray-100: #f4f4f2;
+      --accent: #c8a24a;
+      --white: #ffffff;
+      --max: 1100px;
+    }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      min-height: 100vh;
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* 헤더 */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(18, 18, 18, 0.95);
+      color: var(--white);
+    }
+    .nav {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 16px;
-      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background: linear-gradient(135deg, #e0ecff, #f7f9fc);
-      color: #222;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    .logo-mark {
+      width: 28px;
+      height: 18px;
+      background: var(--white);
+      border-radius: 14px 14px 4px 4px;
+      position: relative;
+    }
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      right: 4px;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .logo span { color: var(--accent); }
+    nav ul {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.95rem;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* 히어로 */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 120px 0 110px;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.25;
+      margin: 16px 0 20px;
+    }
+    .hero p {
+      max-width: 560px;
+      color: #cfcfcf;
+      font-size: 1.1rem;
+      margin: 0 0 36px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-weight: 700;
+      background: var(--accent);
+      color: var(--black);
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-outline {
+      margin-left: 10px;
+      background: transparent;
+      color: var(--white);
+      border: 1px solid #555;
+    }
+
+    /* 공통 섹션 */
+    section { padding: 90px 0; }
+    .section-title { font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin: 8px 0 16px; }
+    .section-lead { color: var(--gray-600); max-width: 640px; margin: 0 0 48px; }
+
+    /* 회사 소개 */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .info {
+      border-top: 3px solid var(--black);
+      padding-top: 18px;
+    }
+    .info dt { color: var(--gray-600); font-size: 0.9rem; }
+    .info dd { margin: 4px 0 0; font-size: 1.3rem; font-weight: 700; }
+
+    /* 사업 분야 */
+    .services { background: var(--gray-100); }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
     }
     .card {
-      width: 100%;
-      max-width: 400px;
-      padding: 32px 28px;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      background: var(--white);
+      padding: 32px 26px;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+    .card .num {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+    .card h3 { margin: 10px 0 10px; font-size: 1.2rem; }
+    .card p { margin: 0; color: var(--gray-600); font-size: 0.95rem; }
+
+    /* 핵심 가치 */
+    .values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+    .value h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .value h3::before {
+      content: "";
+      display: block;
+      width: 32px;
+      height: 3px;
+      background: var(--accent);
+      margin-bottom: 14px;
+    }
+    .value p { margin: 0; color: var(--gray-600); font-size: 0.95rem; }
+
+    /* 문의 */
+    .contact {
+      background: var(--gray-900);
+      color: var(--white);
       text-align: center;
     }
-    h1 { margin: 0 0 24px; font-size: 1.5rem; }
-    form { display: flex; gap: 8px; }
-    input {
-      flex: 1;
-      min-width: 0;
-      padding: 12px 14px;
-      font-size: 1rem;
-      border: 1px solid #ccd3df;
-      border-radius: 8px;
+    .contact .section-lead { color: #bdbdbd; margin: 0 auto 32px; }
+
+    /* 푸터 */
+    footer {
+      background: var(--black);
+      color: #8a8a8a;
+      font-size: 0.85rem;
+      padding: 28px 0;
     }
-    input:focus { outline: 2px solid #3b6ef5; border-color: transparent; }
-    button {
-      padding: 12px 18px;
-      font-size: 1rem;
-      color: #fff;
-      background: #3b6ef5;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
     }
-    button:hover { background: #2c58d6; }
-    #message {
-      margin: 24px 0 0;
-      min-height: 1.5em;
-      font-size: 1.25rem;
-      font-weight: bold;
-      color: #3b6ef5;
+
+    @media (max-width: 640px) {
+      nav ul { gap: 16px; font-size: 0.85rem; }
+      .hero { padding: 80px 0 70px; }
+      .btn-outline { margin: 12px 0 0; }
+      section { padding: 64px 0; }
+    }
+    @media (max-width: 420px) {
+      nav ul li:nth-child(3) { display: none; }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>이름을 입력하세요</h1>
-    <form id="nameForm">
-      <input type="text" id="nameInput" placeholder="이름" autocomplete="name" required>
-      <button type="submit">확인</button>
-    </form>
-    <p id="message"></p>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo"><i class="logo-mark"></i>black<span>beret</span></a>
+      <nav>
+        <ul>
+          <li><a href="#about">회사소개</a></li>
+          <li><a href="#services">사업분야</a></li>
+          <li><a href="#values">핵심가치</a></li>
+          <li><a href="#contact">문의</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Education Company</div>
+        <h1>배움의 기준을 세우는<br>교육 전문 기업, blackberet</h1>
+        <p>blackberet은 학습자 한 사람 한 사람의 성장을 목표로, 체계적이고 실용적인 교육 프로그램을 설계하고 운영합니다.</p>
+        <a href="#services" class="btn">사업분야 보기</a>
+        <a href="#contact" class="btn btn-outline">교육 문의</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="eyebrow">About</div>
+        <h2 class="section-title">회사소개</h2>
+        <p class="section-lead">
+          blackberet은 교육 사업을 주업으로 하는 기업입니다.
+          검은 베레모처럼 단단한 원칙과 전문성을 바탕으로, 신뢰할 수 있는 교육 서비스를 제공합니다.
+        </p>
+        <dl class="about-grid">
+          <div class="info">
+            <dt>회사명</dt>
+            <dd>blackberet</dd>
+          </div>
+          <div class="info">
+            <dt>주업종</dt>
+            <dd>교육 사업</dd>
+          </div>
+          <div class="info">
+            <dt>비전</dt>
+            <dd>누구나 성장하는 배움</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="container">
+        <div class="eyebrow">Business</div>
+        <h2 class="section-title">사업분야</h2>
+        <p class="section-lead">학습자와 기관의 목표에 맞춘 다양한 교육 서비스를 운영합니다.</p>
+        <div class="cards">
+          <article class="card">
+            <div class="num">01</div>
+            <h3>교육 프로그램 운영</h3>
+            <p>대상과 수준에 맞춘 커리큘럼으로 정규 강좌와 단기 과정을 운영합니다.</p>
+          </article>
+          <article class="card">
+            <div class="num">02</div>
+            <h3>기업·기관 교육</h3>
+            <p>조직의 필요에 맞는 맞춤형 위탁 교육과 직무 역량 강화 과정을 제공합니다.</p>
+          </article>
+          <article class="card">
+            <div class="num">03</div>
+            <h3>온라인 교육</h3>
+            <p>시간과 장소의 제약 없이 학습할 수 있는 온라인 강의 콘텐츠를 제작합니다.</p>
+          </article>
+          <article class="card">
+            <div class="num">04</div>
+            <h3>교육 콘텐츠 개발</h3>
+            <p>교재, 학습 자료, 평가 도구 등 교육에 필요한 콘텐츠를 기획하고 개발합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="values">
+      <div class="container">
+        <div class="eyebrow">Core Values</div>
+        <h2 class="section-title">핵심가치</h2>
+        <p class="section-lead">blackberet이 교육을 대하는 세 가지 원칙입니다.</p>
+        <div class="values">
+          <div class="value">
+            <h3>전문성</h3>
+            <p>검증된 방법과 깊이 있는 내용으로 교육의 질을 지킵니다.</p>
+          </div>
+          <div class="value">
+            <h3>실용성</h3>
+            <p>배운 것을 현장에서 바로 활용할 수 있는 교육을 지향합니다.</p>
+          </div>
+          <div class="value">
+            <h3>성장</h3>
+            <p>학습자의 변화와 성장을 가장 중요한 성과로 생각합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="eyebrow">Contact</div>
+        <h2 class="section-title">교육 문의</h2>
+        <p class="section-lead">교육 프로그램, 기업·기관 교육, 제휴에 관한 문의를 기다립니다.</p>
+        <!-- TODO: 실제 연락처(이메일/전화번호)로 교체하세요 -->
+        <p>이메일: contact@example.com</p>
+      </div>
+    </section>
   </main>
 
-  <script>
-    const form = document.getElementById("nameForm");
-    const input = document.getElementById("nameInput");
-    const message = document.getElementById("message");
+  <footer>
+    <div class="container">
+      <span>blackberet · 교육 사업</span>
+      <span>&copy; <span id="year"></span> blackberet. All rights reserved.</span>
+    </div>
+  </footer>
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const name = input.value.trim();
-      if (!name) {
-        message.textContent = "이름을 입력해 주세요.";
-        return;
-      }
-      // textContent를 사용해 입력값이 HTML로 해석되지 않도록 함
-      message.textContent = `${name} 님 어서오세요`;
-    });
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
